@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cumt.gmall.cart.mapper.CartInfoMapper">
+    <resultMap id="cartInfoMap" type="com.cumt.gmall.bean.CartInfo" autoMapping="true">
+        <id column="id" property="id"></id>
+        <result column="price" property="skuPrice"></result>
+    </resultMap>
+
+    <select id="selectCartListWithCurPrice" resultMap="cartInfoMap">
+        SELECT
+            ci.*,
+            si.price
+        FROM
+            sku_info si
+            INNER JOIN cart_info ci ON si.id = ci.sku_id
+        WHERE
+            ci.user_id = #{0}
+    </select>
+</mapper>
